@@ -153,5 +153,5 @@ dependencies {
     kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
 
     // Other modules:
-//    api project(path: ':common')
+    api project(path: ':common')
 }

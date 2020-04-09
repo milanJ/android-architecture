@@ -28,13 +28,25 @@ import timber.log.Timber.DebugTree
  * Also, sets up Timber in the DEBUG BuildConfig. Read Timber's documentation for production setups.
  */
 open class TodoApplication : DaggerApplication() {
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
 
-        return DaggerApplicationComponent.factory().create(applicationContext)
+    companion object {
+        // Constants:
+        private val TAG = TodoApplication::class.java.simpleName
+
+        // Pointer to a singleton instance of this class:
+        var instance: TodoApplication? = null
+            private set
     }
 
     override fun onCreate() {
         super.onCreate()
+
+        instance = this
+
         if (BuildConfig.DEBUG) Timber.plant(DebugTree())
+    }
+
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return DaggerApplicationComponent.factory().create(applicationContext)
     }
 }

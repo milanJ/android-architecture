@@ -17,8 +17,8 @@
 package com.example.android.architecture.blueprints.todoapp.di
 
 import androidx.lifecycle.ViewModel
-import com.example.android.architecture.blueprints.todoapp.tasks.TasksFragment
-import com.example.android.architecture.blueprints.todoapp.tasks.TasksViewModel
+import com.example.android.architecture.blueprints.todoapp.ui.tasks.TasksFragment
+import com.example.android.architecture.blueprints.todoapp.ui.tasks.TasksViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
