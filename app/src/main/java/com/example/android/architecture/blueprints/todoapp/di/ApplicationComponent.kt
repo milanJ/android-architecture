@@ -18,6 +18,11 @@ package com.example.android.architecture.blueprints.todoapp.di
 
 import android.content.Context
 import com.example.android.architecture.blueprints.todoapp.TodoApplication
+import com.example.android.architecture.blueprints.todoapp.data.DataModule
+import com.example.android.architecture.blueprints.todoapp.ui.addedittask.AddEditTaskModule
+import com.example.android.architecture.blueprints.todoapp.ui.statistics.StatisticsModule
+import com.example.android.architecture.blueprints.todoapp.ui.taskdetail.TaskDetailModule
+import com.example.android.architecture.blueprints.todoapp.ui.tasks.TasksModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -31,14 +36,15 @@ import javax.inject.Singleton
  */
 @Singleton
 @Component(
-    modules = [
-        ApplicationModule::class,
-        AndroidSupportInjectionModule::class,
-        TasksModule::class,
-        TaskDetailModule::class,
-        AddEditTaskModule::class,
-        StatisticsModule::class
-    ])
+        modules = [
+            AndroidSupportInjectionModule::class,
+            ApplicationModule::class,
+            DataModule::class,
+            TasksModule::class,
+            TaskDetailModule::class,
+            AddEditTaskModule::class,
+            StatisticsModule::class
+        ])
 interface ApplicationComponent : AndroidInjector<TodoApplication> {
 
     @Component.Factory

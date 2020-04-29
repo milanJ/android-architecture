@@ -14,29 +14,29 @@
  * limitations under the License.
  */
 
-package com.example.android.architecture.blueprints.todoapp.di
+package com.example.android.architecture.blueprints.todoapp.ui.addedittask
 
 import androidx.lifecycle.ViewModel
-import com.example.android.architecture.blueprints.todoapp.ui.taskdetail.TaskDetailFragment
-import com.example.android.architecture.blueprints.todoapp.ui.taskdetail.TaskDetailViewModel
+import com.example.android.architecture.blueprints.todoapp.di.ViewModelBuilder
+import com.example.android.architecture.blueprints.todoapp.di.ViewModelKey
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 
 /**
- * Dagger module for the Detail feature.
+ * Dagger module for the Add/Edit feature.
  */
 @Module
-abstract class TaskDetailModule {
+abstract class AddEditTaskModule {
 
     @ContributesAndroidInjector(modules = [
         ViewModelBuilder::class
     ])
-    internal abstract fun taskDetailFragment(): TaskDetailFragment
+    internal abstract fun addEditTaskFragment(): AddEditTaskFragment
 
     @Binds
     @IntoMap
-    @ViewModelKey(TaskDetailViewModel::class)
-    abstract fun bindViewModel(viewmodel: TaskDetailViewModel): ViewModel
+    @ViewModelKey(AddEditTaskViewModel::class)
+    internal abstract fun bindViewModel(viewmodel: AddEditTaskViewModel): ViewModel
 }

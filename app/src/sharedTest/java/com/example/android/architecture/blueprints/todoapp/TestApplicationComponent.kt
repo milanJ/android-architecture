@@ -18,11 +18,11 @@ package com.example.android.architecture.blueprints.todoapp
 
 import android.content.Context
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository
-import com.example.android.architecture.blueprints.todoapp.di.AddEditTaskModule
-import com.example.android.architecture.blueprints.todoapp.di.StatisticsModule
-import com.example.android.architecture.blueprints.todoapp.di.TaskDetailModule
-import com.example.android.architecture.blueprints.todoapp.di.TasksModule
 import com.example.android.architecture.blueprints.todoapp.di.ViewModelBuilder
+import com.example.android.architecture.blueprints.todoapp.ui.addedittask.AddEditTaskModule
+import com.example.android.architecture.blueprints.todoapp.ui.statistics.StatisticsModule
+import com.example.android.architecture.blueprints.todoapp.ui.taskdetail.TaskDetailModule
+import com.example.android.architecture.blueprints.todoapp.ui.tasks.TasksModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -31,8 +31,9 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [
-    TestApplicationModule::class,
     AndroidSupportInjectionModule::class,
+    TestApplicationModule::class,
+    TestDataModule::class,
     ViewModelBuilder::class,
     TasksModule::class,
     TaskDetailModule::class,

@@ -14,29 +14,29 @@
  * limitations under the License.
  */
 
-package com.example.android.architecture.blueprints.todoapp.di
+package com.example.android.architecture.blueprints.todoapp.ui.statistics
 
 import androidx.lifecycle.ViewModel
-import com.example.android.architecture.blueprints.todoapp.ui.addedittask.AddEditTaskFragment
-import com.example.android.architecture.blueprints.todoapp.ui.addedittask.AddEditTaskViewModel
+import com.example.android.architecture.blueprints.todoapp.di.ViewModelBuilder
+import com.example.android.architecture.blueprints.todoapp.di.ViewModelKey
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 
 /**
- * Dagger module for the Add/Edit feature.
+ * Dagger module for the Statistics feature.
  */
 @Module
-abstract class AddEditTaskModule {
+abstract class StatisticsModule {
 
     @ContributesAndroidInjector(modules = [
         ViewModelBuilder::class
     ])
-    internal abstract fun addEditTaskFragment(): AddEditTaskFragment
+    internal abstract fun statisticsFragment(): StatisticsFragment
 
     @Binds
     @IntoMap
-    @ViewModelKey(AddEditTaskViewModel::class)
-    internal abstract fun bindViewModel(viewmodel: AddEditTaskViewModel): ViewModel
+    @ViewModelKey(StatisticsViewModel::class)
+    abstract fun bindViewModel(viewmodel: StatisticsViewModel): ViewModel
 }

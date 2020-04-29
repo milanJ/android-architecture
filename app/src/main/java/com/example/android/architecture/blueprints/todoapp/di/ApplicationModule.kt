@@ -17,65 +17,32 @@
 package com.example.android.architecture.blueprints.todoapp.di
 
 import android.content.Context
-import androidx.room.Room
-import com.example.android.architecture.blueprints.todoapp.data.source.DefaultTasksRepository
-import com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource
-import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository
-import com.example.android.architecture.blueprints.todoapp.data.source.local.TasksLocalDataSource
-import com.example.android.architecture.blueprints.todoapp.data.source.local.ToDoDatabase
-import com.example.android.architecture.blueprints.todoapp.data.source.remote.TasksRemoteDataSource
-import dagger.Binds
+import com.example.android.architecture.blueprints.todoapp.data.GeneralPreferences
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import javax.inject.Qualifier
+import milan.common.other.EventBus
 import javax.inject.Singleton
-import kotlin.annotation.AnnotationRetention.RUNTIME
 
 
 @Module(includes = [ApplicationModuleBinds::class])
 object ApplicationModule {
 
-    @Qualifier
-    @Retention(RUNTIME)
-    annotation class TasksRemoteDataSource
-
-    @Qualifier
-    @Retention(RUNTIME)
-    annotation class TasksLocalDataSource
-
     @JvmStatic
     @Singleton
-    @TasksRemoteDataSource
     @Provides
-    fun provideTasksRemoteDataSource(): TasksDataSource {
-        return TasksRemoteDataSource
-    }
-
-    @JvmStatic
-    @Singleton
-    @TasksLocalDataSource
-    @Provides
-    fun provideTasksLocalDataSource(
-        database: ToDoDatabase,
-        ioDispatcher: CoroutineDispatcher
-    ): TasksDataSource {
-        return TasksLocalDataSource(
-            database.taskDao(), ioDispatcher
-        )
-    }
+    fun provideGeneralPreferences(context: Context, moshi: Moshi) = GeneralPreferences(context.applicationContext, moshi)
 
     @JvmStatic
     @Singleton
     @Provides
-    fun provideDataBase(context: Context): ToDoDatabase {
-        return Room.databaseBuilder(
-            context.applicationContext,
-            ToDoDatabase::class.java,
-            "Tasks.db"
-        ).build()
-    }
+    fun provideMoshi() = Moshi.Builder().build();
+
+    @JvmStatic
+    @Singleton
+    @Provides
+    fun provideEventBus() = EventBus
 
     @JvmStatic
     @Singleton
@@ -86,7 +53,7 @@ object ApplicationModule {
 @Module
 abstract class ApplicationModuleBinds {
 
-    @Singleton
-    @Binds
-    abstract fun bindRepository(repo: DefaultTasksRepository): TasksRepository
+//    @Singleton
+//    @Binds
+//    abstract fun bindRepository(repo: DefaultTasksRepository): TasksRepository
 }

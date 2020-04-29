@@ -15,7 +15,7 @@
  */
 package com.example.android.architecture.blueprints.todoapp.util
 
-import com.example.android.architecture.blueprints.todoapp.data.Task
+import com.example.android.architecture.blueprints.todoapp.data.model.Task
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository
 import kotlinx.coroutines.runBlocking
 

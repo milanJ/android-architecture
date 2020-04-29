@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-package com.example.android.architecture.blueprints.todoapp.data.source.local
+package com.example.android.architecture.blueprints.todoapp
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import com.example.android.architecture.blueprints.todoapp.data.model.Task
+import com.example.android.architecture.blueprints.todoapp.data.source.FakeRepository
+import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository
+import dagger.Module
+import dagger.Provides
+import javax.inject.Singleton
 
 /**
- * The Room Database that contains the Task table.
- *
- * Note that exportSchema should be true in production databases.
+ * A replacement for [DataModule] to be used in tests. It simply creates a [FakeRepository].
  */
-@Database(entities = [Task::class], version = 1, exportSchema = false)
-abstract class ToDoDatabase : RoomDatabase() {
+@Module
+class TestDataModule {
 
-    abstract fun taskDao(): TasksDao
+    @Singleton
+    @Provides
+    fun provideRepository(): TasksRepository = FakeRepository()
 }

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.example.android.architecture.blueprints.todoapp.di
+package com.example.android.architecture.blueprints.todoapp.ui.tasks
 
 import androidx.lifecycle.ViewModel
-import com.example.android.architecture.blueprints.todoapp.ui.tasks.TasksFragment
-import com.example.android.architecture.blueprints.todoapp.ui.tasks.TasksViewModel
+import com.example.android.architecture.blueprints.todoapp.di.ViewModelBuilder
+import com.example.android.architecture.blueprints.todoapp.di.ViewModelKey
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

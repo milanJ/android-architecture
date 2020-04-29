@@ -16,7 +16,7 @@
 
 package com.example.android.architecture.blueprints.todoapp.ui.statistics
 
-import com.example.android.architecture.blueprints.todoapp.data.Task
+import com.example.android.architecture.blueprints.todoapp.data.model.Task
 import javax.inject.Inject
 
 /**

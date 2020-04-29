@@ -10,12 +10,17 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.suspendCancellableCoroutine
-import milan.common.data.SingleLiveEvent
+import milan.common.Event
+import milan.common.R
+import milan.common.espresso.EspressoIdlingResource
+import milan.common.widget.ScrollChildSwipeRefreshLayout
 import kotlin.coroutines.resume
 
 /**
@@ -31,6 +36,21 @@ fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
 
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
     })
+}
+
+fun Fragment.setupRefreshLayout(
+        refreshLayout: ScrollChildSwipeRefreshLayout,
+        scrollUpChild: View? = null
+) {
+    refreshLayout.setColorSchemeColors(
+            requireActivity().getColorFromAttr(R.attr.colorPrimary),
+            requireActivity().getColorFromAttr(R.attr.colorAccent),
+            requireActivity().getColorFromAttr(R.attr.colorPrimaryDark)
+    )
+    // Set the scrolling view in the custom SwipeRefreshLayout.
+    scrollUpChild?.let {
+        refreshLayout.scrollUpChild = it
+    }
 }
 
 /**
@@ -51,19 +71,50 @@ fun TextInputEditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
 /**
  * Transforms static java function Snackbar.make() to an extension function on View.
  */
-fun View.showSnackBar(snackbarText: String, timeLength: Int) {
-    Snackbar.make(this, snackbarText, timeLength).show()
+fun View.showSnackbar(snackbarText: String, timeLength: Int) {
+    Snackbar.make(this, snackbarText, timeLength).run {
+        addCallback(object : Snackbar.Callback() {
+            override fun onShown(sb: Snackbar?) {
+                EspressoIdlingResource.increment()
+            }
+
+            override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                EspressoIdlingResource.decrement()
+            }
+        })
+        show()
+    }
 }
 
 /**
- * Triggers a SnackBar message when the value contained by snackBarTaskMessageLiveEvent is modified.
+ * Triggers a snackbar message when the value contained by snackbarTaskMessageLiveEvent is modified.
  */
-fun View.setupSnackBar(
+fun View.setupSnackbarWithResId(
         lifecycleOwner: LifecycleOwner,
-        snackbarMessageLiveEvent: SingleLiveEvent<String>, timeLength: Int
+        snackbarEvent: LiveData<Event<Int>>,
+        timeLength: Int
 ) {
-    snackbarMessageLiveEvent.observe(lifecycleOwner, Observer {
-        it?.let { showSnackBar(it, timeLength) }
+
+    snackbarEvent.observe(lifecycleOwner, Observer { event ->
+        event.getContentIfNotHandled()?.let {
+            showSnackbar(context.getString(it), timeLength)
+        }
+    })
+}
+
+/**
+ * Triggers a snackbar message when the value contained by snackbarTaskMessageLiveEvent is modified.
+ */
+fun View.setupSnackbar(
+        lifecycleOwner: LifecycleOwner,
+        snackbarEvent: LiveData<Event<String>>,
+        timeLength: Int
+) {
+
+    snackbarEvent.observe(lifecycleOwner, Observer { event ->
+        event.getContentIfNotHandled()?.let {
+            showSnackbar(it, timeLength)
+        }
     })
 }
 
@@ -108,5 +159,4 @@ fun ViewGroup.relayoutChildren() {
             View.MeasureSpec.makeMeasureSpec(measuredHeight, View.MeasureSpec.EXACTLY))
     layout(left, top, right, bottom)
 }
-
 

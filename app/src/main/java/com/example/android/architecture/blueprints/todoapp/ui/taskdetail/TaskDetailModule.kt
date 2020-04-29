@@ -14,29 +14,29 @@
  * limitations under the License.
  */
 
-package com.example.android.architecture.blueprints.todoapp.di
+package com.example.android.architecture.blueprints.todoapp.ui.taskdetail
 
 import androidx.lifecycle.ViewModel
-import com.example.android.architecture.blueprints.todoapp.ui.statistics.StatisticsFragment
-import com.example.android.architecture.blueprints.todoapp.ui.statistics.StatisticsViewModel
+import com.example.android.architecture.blueprints.todoapp.di.ViewModelBuilder
+import com.example.android.architecture.blueprints.todoapp.di.ViewModelKey
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 
 /**
- * Dagger module for the Statistics feature.
+ * Dagger module for the Detail feature.
  */
 @Module
-abstract class StatisticsModule {
+abstract class TaskDetailModule {
 
     @ContributesAndroidInjector(modules = [
         ViewModelBuilder::class
     ])
-    internal abstract fun statisticsFragment(): StatisticsFragment
+    internal abstract fun taskDetailFragment(): TaskDetailFragment
 
     @Binds
     @IntoMap
-    @ViewModelKey(StatisticsViewModel::class)
-    abstract fun bindViewModel(viewmodel: StatisticsViewModel): ViewModel
+    @ViewModelKey(TaskDetailViewModel::class)
+    abstract fun bindViewModel(viewmodel: TaskDetailViewModel): ViewModel
 }

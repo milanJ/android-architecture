@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.android.architecture.blueprints.todoapp
+package milan.common.widget
 
 import android.content.Context
 import android.util.AttributeSet
@@ -29,12 +29,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
  * define which view controls this behavior.
  */
 class ScrollChildSwipeRefreshLayout @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null
+        context: Context,
+        attrs: AttributeSet? = null
 ) : SwipeRefreshLayout(context, attrs) {
 
     var scrollUpChild: View? = null
 
     override fun canChildScrollUp() =
-        scrollUpChild?.canScrollVertically(-1) ?: super.canChildScrollUp()
+            scrollUpChild?.canScrollVertically(-1) ?: super.canChildScrollUp()
 }

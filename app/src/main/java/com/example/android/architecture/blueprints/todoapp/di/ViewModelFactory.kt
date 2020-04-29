@@ -29,7 +29,7 @@ import kotlin.reflect.KClass
  * ViewModelFactory which uses Dagger to create the instances.
  */
 class TodoViewModelFactory @Inject constructor(
-    private val creators: @JvmSuppressWildcards Map<Class<out ViewModel>, Provider<ViewModel>>
+        private val creators: @JvmSuppressWildcards Map<Class<out ViewModel>, Provider<ViewModel>>
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         var creator: Provider<out ViewModel>? = creators[modelClass]
@@ -57,12 +57,12 @@ class TodoViewModelFactory @Inject constructor(
 internal abstract class ViewModelBuilder {
     @Binds
     internal abstract fun bindViewModelFactory(
-        factory: TodoViewModelFactory
+            factory: TodoViewModelFactory
     ): ViewModelProvider.Factory
 }
 
 @Target(
-    AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER
+        AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER
 )
 @Retention(AnnotationRetention.RUNTIME)
 @MapKey

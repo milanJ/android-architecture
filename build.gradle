@@ -9,7 +9,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.2'
+        classpath 'com.android.tools.build:gradle:3.6.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
 
@@ -67,6 +67,9 @@ ext {
     truthVersion = '0.44'
     glideVersion = '4.11.0'
     rxJavaVersion = '3.0.2'
+    rxAndroidVersion = '3.0.0'
     moshiVersion = '1.9.2'
-
+    retrofitVersion = '2.8.1'
+    okhttpVersion = '4.5.0'
+    swiperefreshlayoutVersion = '1.0.0'
 }

@@ -18,7 +18,7 @@ package com.example.android.architecture.blueprints.todoapp.data.source.local
 import com.example.android.architecture.blueprints.todoapp.data.Result
 import com.example.android.architecture.blueprints.todoapp.data.Result.Error
 import com.example.android.architecture.blueprints.todoapp.data.Result.Success
-import com.example.android.architecture.blueprints.todoapp.data.Task
+import com.example.android.architecture.blueprints.todoapp.data.model.Task
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -28,8 +28,8 @@ import kotlinx.coroutines.withContext
  * Concrete implementation of a data source as a db.
  */
 class TasksLocalDataSource internal constructor(
-    private val tasksDao: TasksDao,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+        private val tasksDao: TasksDao,
+        private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : TasksDataSource {
 
     override suspend fun getTasks(): Result<List<Task>> = withContext(ioDispatcher) {
