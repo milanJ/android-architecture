@@ -78,7 +78,7 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.all {
             def buildType = variant.variantData.variantConfiguration.buildType.name
-            outputFileName = "${defaultConfig.applicationId}_${buildType}_v${defaultConfig.versionName}_SamsungAppStore.apk"
+            outputFileName = "${defaultConfig.applicationId}_${buildType}_v${defaultConfig.versionName}_.apk"
         }
     }
 
